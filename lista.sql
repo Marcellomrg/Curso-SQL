@@ -1,11 +1,15 @@
+-- database: data/database.db
 --Lista de transações com apenas 1 ponto--
 
-SELECT * FROM transacoes where QtdePontos = 1 LIMIT ;
+SELECT * FROM transacoes where QtdePontos = 1 LIMIT 10 ;
 
 
 --Lista de pedidos realizados no fim de semana--
-
-
+SELECT  IdTransacao
+        ,DtCriacao
+        ,strftime("%w",datetime(substr(DtCriacao,1,19))) as DiaSemana
+from transacoes
+where DiaSemana IN ('6','0');
 
 --Lista de clientes com 0 (zero) pontos--
 
@@ -32,7 +36,10 @@ SELECT * FROM produtos where DescProduto LIKE '%Chapéu%';
 SELECT tp.IdTransacao,p.* from produtos as p 
 INNER JOIN transacao_produto as tp 
 ON tp.IdProduto = p.IdProduto
-WHERE p.DescProduto = 'Resgatar Ponei';
+WHERE p.DescProduto = 'Resgatar Ponei' ;
+
+SELECT IdTransacao from transacao_produto WHERE IdProduto = 15;
 
 --Listar todas as transações adicionando uma coluna nova sinalizando “alto”, “médio” e “baixo” para o valor dos pontos [<10 ; <500; >=500] --
+
 
