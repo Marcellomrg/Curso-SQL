@@ -40,6 +40,18 @@ WHERE p.DescProduto = 'Resgatar Ponei' ;
 
 SELECT IdTransacao from transacao_produto WHERE IdProduto = 15;
 
---Listar todas as transações adicionando uma coluna nova sinalizando “alto”, “médio” e “baixo” para o valor dos pontos [<10 ; <500; >=500] --
+--Listar todas as transações adicionando uma coluna nova 
+--sinalizando “alto”, “médio” e “baixo” 
+--para o valor dos pontos [<10 ; <500; >=500] 
+
+SELECT IdTransacao,QtdePontos,
+
+        CASE    
+                WHEN QtdePontos < 10 THEN "baixo"
+                WHEN QtdePontos < 500 THEN "medio"
+                ELSE "alto"
+        END AS Novacoluna
 
 
+FROM transacoes
+ORDER BY QtdePontos DESC
