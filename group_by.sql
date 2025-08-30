@@ -89,3 +89,39 @@ GROUP BY IdProduto
 ORDER BY totalpontos DESC
 
 LIMIT 1;
+
+--Qual o saldo de pontos total do sistema?
+
+SELECT sum(QtdePontos) AS saldoTotal,
+        sum(CASE WHEN QtdePontos > 0 THEN QtdePontos ELSE 0 END) AS saldopositivo,
+        sum(CASE WHEN QtdePontos < 0 THEN QtdePontos ELSE 0 END) AS saldoNegativo
+       
+
+
+FROM transacoes;
+
+--Quantos pontos já foram subtraídos dos clientes?
+
+SELECT IdCliente,sum(QtdePontos)
+
+FROM transacoes
+
+where QtdePontos < 0 
+
+GROUP BY IdCliente
+
+--Quantos clientes tem Twitch?
+
+SELECT count(DISTINCT IdCliente) as clientesTwitch FROM clientes
+
+WHERE FlTwitch = 1
+
+--Qual a média de saldo em carteira?
+
+SELECT round(avg(QtdePontos),2) 
+
+FROM clientes
+
+
+
+
